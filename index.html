@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JeongMin Kang</title>
+<meta name="description" content="JeongMin Kang — graphic designer and aspiring art director based in New York. BFA Design, School of Visual Arts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111;
+    --muted:#8a8a8a;
+    --line:#e2e2e2;
+    --accent:#2f5bd3;          /* blue rule for the active keyword */
+    --bg:#fff;
+    --pad:clamp(16px, 3vw, 44px);
+    --gap-x:clamp(16px, 2.4vw, 40px);
+    --gap-y:clamp(32px, 4.5vw, 64px);
+    --meta:clamp(13px, .95vw, 16px);
+    --safe-l:env(safe-area-inset-left, 0px);
+    --safe-r:env(safe-area-inset-right, 0px);
+    --safe-t:env(safe-area-inset-top, 0px);
+    --header-h:clamp(72px, 7vw, 104px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Inter","Noto Sans KR",system-ui,-apple-system,sans-serif;
+    color:var(--ink);background:var(--bg);
+    -webkit-font-smoothing:antialiased;letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .view[hidden]{display:none}
+
+  /* ================= Header ================= */
+  .site-header{
+    position:sticky;top:0;z-index:20;
+    background:rgba(255,255,255,.94);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    min-height:calc(var(--header-h) + var(--safe-t));
+    padding:calc(var(--safe-t) + clamp(26px, 2.6vw, 42px)) calc(var(--pad) + var(--safe-r)) clamp(16px,1.6vw,24px) calc(var(--pad) + var(--safe-l));
+    display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 16px;
+  }
+  .logo{font-size:clamp(20px,1.7vw,30px);font-weight:500;letter-spacing:-0.02em;white-space:nowrap}
+  .nav{display:flex;justify-content:flex-end;gap:clamp(18px,2.2vw,40px);margin-left:auto}
+  @media (max-width:480px){
+    .site-header{padding-top:calc(var(--safe-t) + 22px)}
+    .nav{gap:18px}
+    .nav a{font-size:15px}
+  }
+  .nav a{font-size:clamp(15px,1.1vw,19px);font-weight:500;padding:6px 0;position:relative}
+  .nav a::after{
+    content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;
+    transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
+  }
+  .nav a[aria-current="page"]::after{transform:scaleX(1)}
+
+  main{padding:0 calc(var(--pad) + var(--safe-r)) clamp(60px,8vw,120px) calc(var(--pad) + var(--safe-l))}
+
+  /* ================= About (home) ================= */
+  .about{padding-top:clamp(28px,4vw,64px)}
+  .about .bio{
+    font-size:clamp(26px, 3.4vw, 60px);font-weight:500;line-height:1.2;letter-spacing:-0.025em;
+    max-width:21em;
+  }
+  .facts{
+    margin-top:clamp(48px,5vw,84px);
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:clamp(28px,3vw,44px) var(--gap-x);
+    max-width:900px;
+    font-size:clamp(15px,1.15vw,20px);line-height:1.5;
+  }
+  .facts h3{font-size:inherit;font-weight:600;margin-bottom:clamp(12px,1.4vw,22px)}
+  .facts strong{font-weight:600}
+  .facts .exp{grid-column:1 / -1}
+  .facts a{border-bottom:1px solid transparent;transition:border-color .2s}
+  .facts .contact{grid-column:1 / -1}
+  @media (min-width:768px){
+    .facts{grid-template-columns:clamp(150px,12vw,220px) clamp(150px,12vw,220px) 1fr}
+    .facts .exp{grid-column:3}
+    .facts .contact{grid-column:1 / span 2}
+    .facts .social{grid-column:3}
+  }
+  @media (hover:hover){ .facts a:hover{border-bottom-color:currentColor} }
+
+  /* ================= Work views (Design / Video / Experiments) ================= */
+  .work{
+    display:grid;grid-template-columns:1fr;gap:24px;
+    padding-top:clamp(8px,1vw,16px);
+  }
+  @media (min-width:900px){
+    .work{grid-template-columns:clamp(200px,17vw,300px) 1fr;gap:clamp(32px,4vw,72px)}
+  }
+
+  /* keyword list */
+  .keywords{list-style:none}
+  .keywords button{
+    display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;
+    font-size:clamp(14px,1.05vw,18px);font-weight:300;letter-spacing:.02em;text-transform:uppercase;
+    padding:9px 0;border-top:2px solid transparent;border-bottom:2px solid transparent;
+    transition:font-weight .15s;
+  }
+  .keywords .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .keywords .count{margin-left:auto;color:var(--muted);font-size:.85em}
+  .keywords button[aria-pressed="true"]{font-weight:600;border-color:var(--accent)}
+  @media (hover:hover){ .keywords button:hover{font-weight:500} }
+
+  @media (min-width:900px){
+    .keywords{position:sticky;top:calc(var(--header-h) + var(--safe-t) + 24px)}
+  }
+  /* phone / tablet: keywords become a horizontal scroller */
+  @media (max-width:899px){
+    .keywords{
+      display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:var(--pad);
+      margin:0 calc(-1 * var(--pad));padding:0 var(--pad);
+      scrollbar-width:none;
+      border-bottom:1px solid var(--line);
+    }
+    .keywords::-webkit-scrollbar{display:none}
+    .keywords li{flex:0 0 auto;scroll-snap-align:start}
+    .keywords button{width:auto;padding:12px 0;border-top:0;font-size:14px}
+    .keywords .count{display:none}
+  }
+
+  /* thumbnails: max 2 per row */
+  .grid{
+    list-style:none;display:grid;grid-template-columns:1fr;
+    column-gap:var(--gap-x);row-gap:var(--gap-y);
+  }
+  @media (min-width:640px){ .grid{grid-template-columns:repeat(2, minmax(0,1fr))} }
+  .card{animation:fade .35s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .card a{display:block}
+  .thumb{aspect-ratio:16/9;overflow:hidden;background:#f3f3f3}
+  .thumb img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .thumb.placeholder{display:flex;align-items:center;justify-content:center;color:#b5b5b5;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  .caption{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:baseline;padding-top:clamp(12px,1.1vw,18px)}
+  .caption h2{font-size:clamp(17px,1.35vw,24px);font-weight:400;letter-spacing:-0.015em;line-height:1.2}
+  .caption .year{font-size:var(--meta);color:var(--muted)}
+  .caption .sub{grid-column:1 / -1;font-size:var(--meta);color:var(--muted);margin-top:4px}
+  .empty{color:var(--muted);font-size:var(--meta);padding:40px 0}
+
+  @media (hover:hover){
+    .card a:hover .thumb img{transform:scale(1.03)}
+    .nav a:hover::after{transform:scaleX(1)}
+  }
+  .card a:focus-visible,.keywords button:focus-visible,.nav a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important;animation:none !important} }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="#about" class="logo">JeongMin Kang</a>
+  <nav class="nav" aria-label="Main">
+    <a href="#design" data-view="design">Design</a>
+    <a href="#video" data-view="video">Video</a>
+    <a href="#experiments" data-view="experiments">Experiments</a>
+  </nav>
+</header>
+
+<main>
+  <!-- ============ HOME / ABOUT ============ -->
+  <section class="view about" id="view-about" aria-label="About">
+    <p class="bio">JeongMin Kang is a graphic designer and aspiring art director based in New York, originally from South Korea. She is currently pursuing a BFA in Design at the School of Visual Arts (SVA). This website serves as an evolving archive of her visual explorations and projects.</p>
+
+    <div class="facts">
+      <div>
+        <h3>Education</h3>
+        <p><strong>School of<br>Visual Arts</strong><br>BFA Graphic Design<br>New York</p>
+      </div>
+      <div>
+        <h3>Awards</h3>
+        <p><strong>Space776</strong><br>Silver medal<br>New York</p>
+      </div>
+      <div class="exp">
+        <h3>Experience</h3>
+        <p><strong>Tresbien Corp.</strong><br>Graphic Design &amp; Character Design<br>May 2025 – August 2025<br>South Korea, Seoul</p>
+      </div>
+      <div class="contact">
+        <h3>Contact</h3>
+        <p><a href="mailto:jeongminkang.design@gmail.com">jeongminkang.design@gmail.com</a></p>
+      </div>
+      <div class="social">
+        <h3>Social</h3>
+        <p><a href="#about">LinkedIn</a><br><a href="#about">Instagram</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK (one template, three sections) ============ -->
+  <section class="view work" id="view-work" aria-label="Work" hidden>
+    <ul class="keywords" id="keywords" aria-label="Filter by keyword"></ul>
+    <div>
+      <ul class="grid" id="grid"></ul>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ---------------------------------------------------------------
+   PROJECT DATA — edit here.
+   tags  : keywords used by the left filter
+   sub   : the grey line under the title
+   img   : thumbnail path (16:9). Leave empty for a placeholder.
+---------------------------------------------------------------- */
+const SECTIONS = {
+  design: {
+    keywords: ['Branding','Identity','Packaging','Editorial','Typography','Poster','Exhibition','Icon','Logo'],
+    projects: [
+      { title:'Buly 1803', sub:'Packaging Design, Branding', tags:['Branding','Packaging'], img:'img/buly.jpg' },
+      { title:'DongMyo Archive', sub:'Editorial Design', tags:['Editorial'], img:'img/dongmyo.jpg' },
+      { title:'Goca', sub:'Identity, Icon Design', tags:['Identity','Icon'], img:'img/goca.jpg' },
+      { title:'Unit.06', sub:'Typography', tags:['Typography'], img:'img/unit06.jpg' },
+      { title:'Kamekura Retrospective', sub:'Identity, Poster, Exhibition', tags:['Identity','Poster','Exhibition'], img:'img/kamekura.jpg' },
+      { title:'Bellishe', sub:'Identity, Logo Design', tags:['Branding','Identity','Logo'], img:'img/bellishe.jpg' },
+    ]
+  },
+  video: {
+    keywords: ['Motion Graphics','Kinetic Type','Title Design','Character'],
+    projects: [
+      { title:'Almost There', sub:'Kinetic Typography', tags:['Kinetic Type'], img:'' },
+      { title:'36 Days of Type', sub:'Type, Motion', tags:['Kinetic Type','Motion Graphics'], img:'' },
+      { title:'Sci-Fi Panels', sub:'HUD Animation', tags:['Motion Graphics'], img:'' },
+      { title:'Opening Title', sub:'Title Sequence', tags:['Title Design'], img:'' },
+    ]
+  },
+  experiments: {
+    keywords: ['AI','Riso','Goods'],
+    projects: [
+      { title:'Design with Dots', sub:'AI Image Making', tags:['AI'], img:'' },
+      { title:'Haunted Pharmacy', sub:'Goods, Ad Design', tags:['AI','Goods'], img:'' },
+      { title:'Secret Riso Club', sub:'Riso Poster', tags:['Riso'], img:'' },
+    ]
+  }
+};
+
+const $kw = document.getElementById('keywords');
+const $grid = document.getElementById('grid');
+let current = { section:null, keyword:'all' };
+
+const pad = n => String(n).padStart(2,'0');
+
+function renderKeywords(section){
+  const { keywords, projects } = SECTIONS[section];
+  const items = [['all','View All', projects.length],
+    ...keywords.map(k => [k, k, projects.filter(p => p.tags.includes(k)).length])];
+  $kw.innerHTML = items.map(([key,label,count],i) => `
+    <li><button type="button" data-key="${key}" aria-pressed="${key===current.keyword}">
+      <span class="num">|${pad(i+1)}|</span><span>${label}</span><span class="count">${count}</span>
+    </button></li>`).join('');
+}
+
+function renderGrid(section){
+  const list = SECTIONS[section].projects
+    .filter(p => current.keyword==='all' || p.tags.includes(current.keyword));
+  $grid.innerHTML = list.length ? list.map((p,i) => `
+    <li class="card" style="animation-delay:${i*40}ms"><a href="#${section}">
+      ${p.img
+        ? `<div class="thumb"><img src="${p.img}" alt="${p.title}" loading="${i<4?'eager':'lazy'}"></div>`
+        : `<div class="thumb placeholder">Thumbnail 16:9</div>`}
+      <div class="caption"><h2>${p.title}</h2>${p.year?`<span class="year">${p.year}</span>`:''}<p class="sub">${p.sub}</p></div>
+    </a></li>`).join('') : '<li class="empty">No projects yet.</li>';
+}
+
+$kw.addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  current.keyword = b.dataset.key;
+  $kw.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x===b));
+  renderGrid(current.section);
+});
+
+/* hash routing: #about (home) / #design / #video / #experiments */
+function route(){
+  const h = location.hash.slice(1);
+  const section = SECTIONS[h] ? h : null;
+  document.getElementById('view-about').hidden = !!section;
+  document.getElementById('view-work').hidden = !section;
+  document.querySelectorAll('.nav a').forEach(a =>
+    a.dataset.view===section ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'));
+  if(section && section!==current.section){
+    current = { section, keyword:'all' };
+    renderKeywords(section); renderGrid(section);
+    window.scrollTo(0,0);
+  } else if(!section){ current.section=null; window.scrollTo(0,0); }
+}
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
